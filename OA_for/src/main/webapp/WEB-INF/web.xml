@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
+                             http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+
+  <display-name>Archetype Created Web Application</display-name>
+  <welcome-file-list>
+    <welcome-file>index.html</welcome-file>
+    <welcome-file>index.htm</welcome-file>
+    <welcome-file>index.jsp</welcome-file>
+    <welcome-file>default.html</welcome-file>
+    <welcome-file>default.htm</welcome-file>
+    <welcome-file>default.jsp</welcome-file>
+  </welcome-file-list>
+  <!-- Spring监听器 -->
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+
+  <!-- 指定Spring配置文件所在地方 -->
+  <context-param>
+    <param-name>contextConfigLocation</param-name>
+    <param-value>classpath:spring/applicationContext*.xml</param-value>
+  </context-param>
+
+  <!-- 配置SpringMvc核心Servlet -->
+  <servlet>
+    <servlet-name>springmvc</servlet-name>
+    <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>springmvc</servlet-name>
+    <url-pattern>*.jspx</url-pattern>
+  </servlet-mapping>
+
+  <!-- 配置字符编码拦截器   该拦截器只对post请求有效，对get请求以及ajax异步请求是无效  -->
+  <filter>
+    <filter-name>characterEncodingFilter</filter-name>
+    <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+    <init-param>
+      <param-name>encoding</param-name>
+      <param-value>utf-8</param-value>
+    </init-param>
+  </filter>
+
+  <filter-mapping>
+    <filter-name>characterEncodingFilter</filter-name>
+    <url-pattern>*.jspx</url-pattern>
+  </filter-mapping>
+
+  <!-- 设置session的有效时间  默认是30分钟   单位是分钟 -->
+  <session-config>
+    <session-timeout>120</session-timeout>
+  </session-config>
+
+
+  <jsp-config>
+    <jsp-property-group>
+      <!-- 拦截的地址  拦截所有的jsp页面-->
+      <url-pattern>*.jsp</url-pattern>
+      <!--  在访问任何jsp页面前 预加载 common.jsp    比如用户访问  login.jsp -->
+      <include-prelude>/WEB-INF/jsp/common/common.jsp</include-prelude>
+
+    </jsp-property-group>
+  </jsp-config>
+
+</web-app>
+

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xmlns:p="http://www.springframework.org/schema/p"
+  xmlns:c="http://www.springframework.org/schema/c"
+  xmlns:tx="http://www.springframework.org/schema/tx"
+  xmlns:aop="http://www.springframework.org/schema/aop"
+  xmlns:context="http://www.springframework.org/schema/context"
+  xmlns:util="http://www.springframework.org/schema/util"
+  xmlns:mvc="http://www.springframework.org/schema/mvc"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans
+      				  http://www.springframework.org/schema/beans/spring-beans.xsd
+      				  http://www.springframework.org/schema/tx
+      				  http://www.springframework.org/schema/tx/spring-tx.xsd
+      				  http://www.springframework.org/schema/aop
+      				  http://www.springframework.org/schema/aop/spring-aop.xsd
+      				  http://www.springframework.org/schema/context
+      				  http://www.springframework.org/schema/context/spring-context.xsd
+      				  http://www.springframework.org/schema/util
+      				  http://www.springframework.org/schema/util/spring-util.xsd
+      				  http://www.springframework.org/schema/mvc
+      				  http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+    
+    <!-- 自动扫描该包，SpringMVC会将包下用了@controller注解的类注册为SpringMVC的controller -->
+	<context:component-scan base-package="com.wang" use-default-filters="false">
+		<context:include-filter type="annotation" 
+			expression="org.springframework.stereotype.Controller"/>
+		<context:include-filter type="annotation" 
+			expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+	</context:component-scan>
+
+    <!-- 设置默认配置方案,支持注解 -->
+    <mvc:annotation-driven />
+    <!-- 使用默认的Servlet来响应静态文件 -->
+    <mvc:default-servlet-handler/>
+ 
+    
+    
+     <!-- 视图解析器  /WEB-INF/jsp/login.jsp-->
+     <bean id="viewResolver"
+          class="org.springframework.web.servlet.view.InternalResourceViewResolver"> 
+        <!-- 前缀 -->
+        <property name="prefix">
+            <value>/WEB-INF/jsp/</value>
+        </property>
+        <!-- 后缀 -->
+        <property name="suffix">
+            <value>.jsp</value>
+        </property>
+    </bean>
+    
+    <!-- 声明登录拦截器 -->
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <!-- http://127.0.0.1:8080/LMS/login.jspx    http://127.0.0.1:8080/LMS/abc.jspx   http://localhost:8080/LMS/dsdsds.jspx
+                 http://127.0.0.1:8080/LMS/user/login.jspx 
+                 http://127.0.0.1:8080/LMS/identity/user/login.jspx   http://127.0.0.1:8080/LMS/dsd/ds/fdfd.jspx
+            
+            -->
+           <!-- 指定需要拦截的地址 -->
+           <mvc:mapping path="/*.jspx"/>
+           <mvc:mapping path="/*/*.jspx"/>
+           <mvc:mapping path="/*/*/*.jspx"/>
+           
+           <!-- 指定哪些请求不拦截 -->
+           <mvc:exclude-mapping path="/createCode.jspx"/>
+           <mvc:exclude-mapping path="/identity/user/ajaxLogin.jspx"/>
+           <!-- 指定拦截器的地址   包名加类名 -->
+           <bean class="com.wang.lms.util.filter.LoginFilter"></bean>
+        </mvc:interceptor>
+    </mvc:interceptors>
+    
+    <!-- http://127.0.0.1:8080/lms/login.jspx      /WEB-INF/jsp/login.jsp -->
+    <!-- SpringMvc中的 视图与控制器的转换 -->
+    <mvc:view-controller path="/login.jspx"/>
+	 
+</beans>

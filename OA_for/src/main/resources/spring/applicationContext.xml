@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:p="http://www.springframework.org/schema/p"
+    xmlns:c="http://www.springframework.org/schema/c"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    xmlns:util="http://www.springframework.org/schema/util"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xsi:schemaLocation="http://www.springframework.org/schema/beans
+    http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/util
+	http://www.springframework.org/schema/util/spring-util.xsd
+	http://www.springframework.org/schema/context
+	http://www.springframework.org/schema/context/spring-context.xsd
+	http://www.springframework.org/schema/tx
+	http://www.springframework.org/schema/tx/spring-tx.xsd
+	http://www.springframework.org/schema/aop
+	http://www.springframework.org/schema/aop/spring-aop.xsd">
+     <!-- 配置自动扫描的包 -->
+	<context:component-scan base-package="com.wang.lms" >
+		<context:exclude-filter type="annotation" expression="org.springframework.stereotype.Controller"/>
+		<context:exclude-filter type="annotation" expression="org.springframework.web.bind.annotation.ControllerAdvice"/>
+	</context:component-scan>
+	
+    <!-- 创建一个连接池 DataSources对象
+       c3p0其实默认会到类路径下寻找c3p0.properties文件
+                并且要求c3p0.properties文件中的key必须是以c3p0.开始的
+      -->
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" >
+    </bean>   
+    
+    <!-- 
+          spring应该加载Hibernate配置文件,得到一个SessionFactory 
+         		连接工厂:来自于连接池
+         		Spring已经管理了Hibernate的连接工厂了
+     -->
+   <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
+        p:dataSource-ref="dataSource" 
+        p:configLocation="classpath:hibernate.cfg.xml"
+        >
+   </bean>
+   
+    <!-- 事务配置才可以得到线程安全的会话  -->
+	<bean id="transactionManager" class="org.springframework.orm.hibernate4.HibernateTransactionManager"
+		p:sessionFactory-ref="sessionFactory" />
+	
+    <tx:annotation-driven transaction-manager="transactionManager"/>	
+ 
+    
+ </beans>
+
+
+

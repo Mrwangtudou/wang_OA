@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8" ?>
+
+<!DOCTYPE taglib
+        PUBLIC "-//Sun Microsystems, Inc.//DTD JSP Tag Library 1.2//EN"
+        "http://java.sun.com/j2ee/dtd/web-jsptaglibrary_1_2.dtd">
+
+<taglib>
+  
+  <tlib-version>1.0</tlib-version>
+  <!-- jstl版本号 -->
+  <jsp-version>1.2</jsp-version>
+  <!-- 简称 -->
+  <short-name>simple</short-name>
+  <!-- jsp中可以通过引入该uri地址找到对应的标签处理类 -->
+  <uri>/pageTag-j1708</uri>
+  <!-- 描述信息 -->
+  <description>
+                信息化管理系统分页标签，23种样式，牛逼！
+  </description>
+
+  <!-- 指定标签相关信息 -->
+  <tag>
+    <!-- 标签名字 -->
+    <name>pager</name>
+    <!-- 标签处理类 -->
+    <tag-class>org.fkjava.lms.common.page.PageTag</tag-class>
+    <body-content>JSP</body-content>
+    <!-- 标签描述信息 -->
+    <description>
+                                   信息化管理系统分页标签，23种样式，牛逼！
+    </description>
+
+    <!-- 指定标签中属性 -->
+    <attribute>
+      <!-- 属性名 -->
+      <name>pageIndex</name>
+      <!-- 是否必填 -->
+      <required>true</required>
+      <!-- 是否支持EL表达式 -->
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    
+     <!-- 指定标签中属性 -->
+    <attribute>
+      <!-- 属性名 -->
+      <name>totalSize</name>
+      <!-- 是否必填 -->
+      <required>true</required>
+      <!-- 是否支持EL表达式 -->
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    
+      <!-- 指定标签中属性 -->
+    <attribute>
+      <!-- 属性名 -->
+      <name>pageSize</name>
+      <!-- 是否必填 -->
+      <required>true</required>
+      <!-- 是否支持EL表达式 -->
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    
+    
+     <!-- 指定标签中属性 -->
+    <attribute>
+      <!-- 属性名 -->
+      <name>submitUrl</name>
+      <!-- 是否必填 -->
+      <required>true</required>
+      <!-- 是否支持EL表达式 -->
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    
+     <!-- 指定标签中属性 -->
+    <attribute>
+      <!-- 属性名 -->
+      <name>pageStyle</name>
+      <!-- 是否必填 -->
+      <required>false</required>
+      <!-- 是否支持EL表达式 -->
+      <rtexprvalue>true</rtexprvalue>
+    </attribute>
+   
+  </tag>
+  
+  
+   <tag>
+    <!-- 标签名字 -->
+    <name>operas</name>
+    <!-- 标签处理类 -->
+    <tag-class>org.fkjava.lms.common.page.PageOpras</tag-class>
+    <body-content>JSP</body-content>
+    <!-- 标签描述信息 -->
+    <description>
+                                   权限控制自定义标签
+    </description>
+
+    <!-- 指定标签中属性 -->
+    <attribute>
+      <!-- 属性名 -->
+      <name>name</name>
+      <!-- 是否必填 -->
+      <required>true</required>
+      <!-- 是否支持EL表达式 -->
+      <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    
+   
+  </tag>
+  
+
+</taglib>
